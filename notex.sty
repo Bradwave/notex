@@ -1,0 +1,1445 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{notex}
+
+%% ================================================= %%
+%%      _   __      ______      _  __
+%%     / | / /____ /_  __/___  | |/ /
+%%    /  |/ // __ \ / /  / _ \ |   / 
+%%   / /|  // /_/ // /  /  __//   |  
+%%  /_/ |_/ \____//_/   \___//_/|_|  
+%%                                 
+%% ================================================= %%
+%%
+%% NoTeX
+%%
+%% ================================================= %%
+%% A custom style file
+%% for pretty notes in LaTeX.
+%% ================================================= %%
+
+% THIS IS A WIP PERSONAL PROJECT!
+%
+% USE WITH CAUTION!
+%
+% I don't fully comprehend LaTeX, so many things could
+% be poorly written or straight out wrong!
+%
+% It's basically a collection of stuff I found online
+% or wrote myselft in order to prettify my notes.
+% Originally designed to work in Italian, on Overleaf.
+
+%% ------------------------------------------------- %%
+
+%% HOW TO USE
+% Download the notex.sty
+% - \usepackage{notex}
+%   if notex.sty is in the same folder as the .tex file
+% - \usepackage{folder-name/notex}
+%   if notex.sty is in a specific folder.
+
+%% NOTE:
+% To use this style file in books or reports,
+% you should consider using notex-bookstyle.sty
+% in combination with notex.sty
+
+%% ------------------------------------------------- %%
+
+%% LICENSE
+
+%% notex.sty
+%% Copyright 2021 Matteo Bramardi
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+% 
+% The Current Maintainer of this work is Matteo Bramardi.
+%
+% This work consists of the files notex.sty and notex-bookstyle.sty.
+
+%% ------------------------------------------------- %%
+
+%% TABLE OF CONTENT:
+%
+% 1 - Packages
+%  1.1 - Languate (Italian by default)
+%  1.2 - Utiles
+%  1.3 - Images
+%  1.4 - Fonts
+%  1.5 - Colors
+%  1.6 - Various packages
+%  1.7 - Frames
+%  1.8 - Footer
+%  1.9 - Math
+%  1.10 - Tikz library
+%
+% 2 - Geometry
+%  2.1 - Spacing options
+%  2.2 - Geometry frame options
+%
+% 3 - Fancy page options
+%  3.1 - Fancy header
+%  3.1.1 - Header for plain pages
+%
+% 4 - Section
+%  4.1 - Invisible section
+%
+% 5 - Colors
+%  5.1 - Colorblid-friendly palette
+%
+% 6 - Custom commands
+%  6.1 - Text formatting
+%          6.1.1 - Highlights and boxes
+%  6.2 - Math expressions
+%      6.2.1 - Equals, greater, less than
+%      6.2.2 - Arrows
+%          6.2.2.1 - Vertical arrows
+%          6.2.2.2 - Hook arrows
+%          6.2.2.3 - Squared arrows (tikz)
+%      6.2.3 - Function related
+%      6.2.5 - Function definitions
+%      6.2.4 - Norms
+%      6.2.5 - Logical operators
+%      6.2.6 - Hat, overline, tilde
+%      6.2.7 - Prime, inverse
+%      6.2.8 - Inf, sup, min, max
+%      6.2.9 - Various spaces
+%      6.2.10 - Cases
+%      6.2.11 - Others
+%          6.2.11.1 - Fourier related
+%  6.3 - Page formatting
+%      6.3.1 - Foot note
+%
+% 7 - Notex environments
+%  7.1 - Counters
+%  7.2 - Proof environment
+%  7.3 - General environment
+%      7.3.1 - Theorem environment
+%      7.3.2 - Definition environment
+%      7.3.3 - Example environment
+%      7.3.4 - Remark environment
+%  7.4 - Notes environments
+%  7.5 - Boxed environments
+%      7.5.1 - Side bar boxed environment
+%  7.6 - Quotes and quote environment
+%
+% 8 - Math formatting
+%
+% 9 - Referencs
+%  9.1 - Alternative naming convention
+%
+% 10 - Experimental
+
+%% ================================================= %%
+%% 1 - Packages
+%% ================================================= %%
+
+%% 1.1 - Language
+\usepackage[italian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[autostyle,italian=guillemets]{csquotes}
+\usepackage[backend=biber, style=numeric]{biblatex}
+
+%% 1.2 - Utils
+\usepackage{ifthen}
+
+%% 1.3 - Images
+\usepackage{graphicx, float}
+\graphicspath{{imgs/}}
+
+%% 1.4 - Fonts
+\usepackage[T1]{fontenc}
+\usepackage{libertine}
+
+%% 1.5 - Colors
+\usepackage[dvipsnames]{xcolor}
+
+%% 1.6 - Various packages
+\usepackage{enumitem,textcomp,titling,longtable,stackengine,marginnote,multicol,blindtext,changepage,
+    marginnote,fancyhdr,titlesec,hanging,etoolbox,framed,varwidth,environ,arydshln,booktabs,witharrows,array,
+    bibentry,pifont,svg,upgreek,caption,soul}
+
+%% 1.7 - Frames
+\usepackage[framemethod=tikz]{mdframed}
+\renewcommand*{\marginfont}{\footnotesize}%
+
+%% 1.8 - Footer
+\usepackage[symbol]{footmisc}
+
+%% 1.9 - Math
+\usepackage{amsmath,amsthm,amsfonts,amssymb,mathtools,textcomp,stmaryrd,xfrac,tikz-cd,faktor}
+\usepackage[makeroom]{cancel}
+\usepackage{wasysym}[nointegrals]
+
+%% 1.10 - Tikz options
+
+%% Tikz Library
+\usetikzlibrary{calc}
+
+%% Tikz mark
+\newcommand*{\tikzmark}[1]{\tikz[overlay,remember picture] \node (#1) {};}%
+
+%% ================================================= %%
+%% 2 - Geometry
+%% ================================================= %%
+
+\usepackage
+    %[showframe] % Uncomment to show page margins and frames.
+    {geometry}
+\geometry{%
+    a4paper,
+    margin=25mm,
+    headsep=12mm
+}
+
+%% 2.1 - Spacing options
+\setlength\parindent{0pt}
+\setlength{\parskip}{.5em}
+\setlength{\baselineskip}{1.2em}
+\setlength{\headheight}{15pt}
+
+%% 2.2 - Geometry frame options
+\makeatletter
+\def\Gm@hrule{\color{red!20}\hrule height 1pt depth\z@ width\textwidth}%
+\def\Gm@vrule{\color{red!20}\vrule width 1pt height\textheight depth\z@}%
+\def\Gm@hruled{\color{red!20}\hrule height\z@ depth1pt width\textwidth}%
+\makeatother
+
+%% ------------------------------------------------- %%
+%% 3 - Fancy page options
+%% ------------------------------------------------- %%
+
+\pagestyle{fancy}
+
+%% 3.1 - Fancy header
+\renewcommand*{\sectionmark}[1]{%
+    \markright{\MakeUppercase{\thesection.\ #1}}%
+}%
+\renewcommand*{\headrulewidth}{0.5pt}%
+\renewcommand*{\footrulewidth}{0pt}%
+\fancyhf{}
+\fancyhead[RO]{\bf \thepage}
+\fancyhead[LO]{\textsc{\nouppercase{\small \leftmark}}}
+\fancyfoot{}
+
+%% 3.2.1 - Header for plain page
+\fancypagestyle{plain}{%
+    \renewcommand{\headrulewidth}{0pt}
+    \fancyhead[RO]{}
+    \fancyhead[LO]{}
+    \fancyfoot{}
+}
+
+%% ================================================= %%
+%% 4 - Section
+%% ================================================= %%
+
+\titleformat{\section}%
+    {\LARGE\bf}{\thesection}{1em}{}%
+    
+%% 4.1 - Invisible section
+\newcommand*\invisiblesection[1]{%
+    \refstepcounter{section}%
+    \addcontentsline{toc}{section}{\protect\numberline{\thesection}#1}%
+    \sectionmark{#1}}%
+    
+%% ================================================= %%
+%% 5 - Colors
+%% ================================================= %%
+
+%% 5.1 - Colorblind-friendly palette
+\definecolor{FriendlyOrange}{HTML}{FD8B28}
+\definecolor{FriendlyBlue}{HTML}{1484E6}
+\definecolor{FriendlyGreen}{HTML}{60EAA8}
+\definecolor{FriendlyForest}{HTML}{5cb58b} % or 438264
+\definecolor{FriendlyMidnight}{HTML}{3B4565}
+\definecolor{FriendlyDenim}{HTML}{116BB9}
+\definecolor{FriendlyRed}{HTML}{D83422}
+\definecolor{FriendlyYellow}{HTML}{F7CF29}
+\newcommand*{\red}[1]{\textcolor{FriendlyRed}{#1}}%
+\newcommand*{\bred}[1]{\textcolor{FriendlyRed}{\textbf{#1}}}%
+\newcommand*{\blue}[1]{\textcolor{FriendlyDenim}{#1}}%
+\newcommand*{\bblue}[1]{\textcolor{FriendlyDenim}{\textbf{#1}}}%
+\newcommand*{\yel}[1]{\textcolor{FrendlyYellow}{#1}}%
+\newcommand*{\byel}[1]{\textcolor{FriendlyYellow}{\textbf{#1}}}%
+\newcommand*{\defOrange}[1]{\textcolor{FriendlyOrange}{#1}}%
+\newcommand*{\bd}[1]{\textbf{\defOrange{#1}}}%
+\newcommand*{\thBlue}[1]{\textcolor{FriendlyBlue}{#1}}%
+\newcommand*{\bt}[1]{\textbf{\thBlue{#1}}}%
+\newcommand*{\exGreen}[1]{\textcolor{FriendlyGreen}{#1}}%
+\newcommand*{\be}[1]{\textbf{\exGreen{#1}}}%
+\newcommand*{\exForest}[1]{\textcolor{FriendlyForest}{#1}}%
+\newcommand*{\bdg}[1]{\textbf{\exForest{#1}}}%
+\newcommand*{\rmrkMidnight}[1]{\textcolor{FriendlyMidnight}{#1}}%
+\newcommand*{\bm}[1]{\textbf{\rmrkMidnight{#1}}}%
+
+%% ================================================= %%
+%% 6 - Custom commands
+%% ================================================= %%
+
+%% A series of remapping for common commands
+%% and new commands to speed up math writing.
+
+%% ------------------------------------------------- %%
+
+%% 6.1 - Text formatting
+
+%% Fast bold
+\newcommand*{\tbf}[1]{\textbf{#1}}%
+
+%% Fast italic
+\newcommand*{\tit}[1]{\textit{#1}}%
+
+%% Bold and italic
+\newcommand*{\tbfit}[1]{\tbf{\tit{#1}}}%
+
+%% Fast quotation marks
+\newcommand*{\tqt}[1]{``#1''}%
+
+%% Other quoted text options
+\newcommand*{\tqtm}[1]{"#1"}%
+\newcommand*{\tqtc}[1]{\opencq#1\closecq}%
+\newcommand*{\tqtit}[1]{\openq\textit{#1}\closeq}%
+\newcommand*{\tqtmit}[1]{\tqt{\textit{#1}}}%
+\newcommand*{\tqtcit}[1]{\opencq\textit{#1}\closecq}%
+
+%% Rm text options
+\newcommand*{\trm}[1]{\textrm{#1}}%
+\newcommand*{\trmit}[1]{\trm{\tit{#1}}}%
+
+%% Quotation marks
+\newcommand*{\openq}{``}%
+\newcommand*{\closeq}{''}%
+\newcommand*{\opencq}{\guillemotleft}%
+\newcommand*{\closecq}{\guillemotright}%
+
+%% Circled letters
+\newcommand*\circled[2][0.5pt]{\tikz[baseline=(char.base)]{%
+    \node[shape=circle,draw,inner sep=#1] (char) {#2};}}%
+    
+%% ------------------------------------------------- %%
+
+%% 6.1.1 - Highlights and boxes
+
+%% Highlighted text
+\newcommand*{\highgen}[1]{\colorbox{black!5}{#1}}
+\newcommand*{\highthm}[1]{\colorbox{FriendlyBlue!12}{#1}}%
+\newcommand*{\highdef}[1]{\colorbox{FriendlyOrange!12}{#1}}%
+\newcommand*{\highexmp}[1]{\colorbox{FriendlyGreen!14}{#1}}%
+\newcommand*{\highrmrk}[1]{\colorbox{FriendlyMidnight!12}{#1}}%
+
+%% Highlighted math
+\newcommand*{\highlight}[2][FriendlyMidnight!5]{\mathchoice%
+  {\colorbox{#1}{$\displaystyle#2$}}%
+  {\colorbox{#1}{$\textstyle#2$}}%
+  {\colorbox{#1}{$\scriptstyle#2$}}%
+  {\colorbox{#1}{$\scriptscriptstyle#2$}}%
+}%
+\newcommand*{\markthm}[1]{\highlight[FriendlyBlue!12]{#1}}%
+\newcommand*{\marklthm}[1]{\highlight[FriendlyBlue!4]{#1}}%
+\newcommand*{\markdefn}[1]{\highlight[FriendlyOrange!12]{#1}}%
+\newcommand*{\markldefn}[1]{\highlight[FriendlyOrange!4]{#1}}%
+\newcommand*{\markexmp}[1]{\highlight[FriendlyGreen!12]{#1}}%
+\newcommand*{\marklexmp}[1]{\highlight[FriendlyGreen!4]{#1}}%
+\newcommand*{\markrmrk}[1]{\highlight[FriendlyMidnight!12]{#1}}%
+\newcommand*{\marklrmrk}[1]{\highlight[FriendlyMidnight!4]{#1}}%
+\newcommand*{\redmark}[2][30]{\highlight[red!#1]{#2}}%
+
+%% Color box
+\newcommand*{\colorboxed}{}
+\def\colorboxed#1#{%
+    \setlength{\fboxrule}{1.2pt}%
+    \colorboxedAux{#1}%
+}%
+
+\newcommand*{\colorboxedAux}[3]{%
+  % #1: optional argument for color model
+  % #2: color specification
+  % #3: formula
+  \begingroup
+    \colorlet{cb@saved}{.}%
+    \color#1{#2}%
+    \boxed{%
+      \color{cb@saved}%
+      #3%
+    }%
+  \endgroup
+}%
+
+%% Boxed math
+\newcommand*{\boxedthm}[1]{\colorboxed{FriendlyBlue}{#1}}%
+\newcommand*{\boxedlthm}[1]{\colorboxed{FriendlyBlue!32}{#1}}%
+\newcommand*{\boxeddefn}[1]{\colorboxed{FriendlyOrange}{#1}}%
+\newcommand*{\boxedldefn}[1]{\colorboxed{FriendlyOrange!32}{#1}}%
+\newcommand*{\boxedexmp}[1]{\colorboxed{FriendlyGreen}{#1}}%
+\newcommand*{\boxedlexmp}[1]{\colorboxed{FriendlyGreen!32}{#1}}%
+\newcommand*{\boxedrmrk}[1]{\colorboxed{FriendlyMidnight}{#1}}%
+\newcommand*{\boxedlrmrk}[1]{\colorboxed{FriendlyMidnight!32}{#1}}%
+\newcommand*{\boxedblue}[1]{\colorboxed{FriendlyDenim}{#1}}%
+\newcommand*{\boxedred}[1]{\colorboxed{FriendlyRed}{#1}}%
+
+%% Highlights with soul
+
+\makeatletter
+\patchcmd{\SOUL@ulunderline}{\dimen@}{\SOUL@dimen}{}{}
+\patchcmd{\SOUL@ulunderline}{\dimen@}{\SOUL@dimen}{}{}
+\patchcmd{\SOUL@ulunderline}{\dimen@}{\SOUL@dimen}{}{}
+\newdimen\SOUL@dimen
+\makeatother
+\newcommand*{\hlc}[2][black!5]{{%
+  \sethlcolor{#1}\hl{\,#2\,}  
+}}
+
+\renewcommand*{\highgen}[1]{{\hlc[black!5]{#1}}}%
+\renewcommand*{\highthm}[1]{{\hlc[FriendlyBlue!12]{#1}}}%
+\renewcommand*{\highdef}[1]{{\hlc[FriendlyOrange!12]{#1}}}%
+\renewcommand*{\highexmp}[1]{{\hlc[FriendlyGreen!14]{#1}}}%
+\renewcommand*{\highrmrk}[1]{{\hlc[FriendlyMidnight!12]{#1}}}%
+
+%% ------------------------------------------------- %%
+
+%% 6.2 - Math expressions
+
+%% ------------------------------------------------- %%
+
+%% 6.2.1 - Equals, greater, less than
+
+%% Equals by definition
+\newcommand*\eqdef{%
+    \, \stackrel{\mathclap{\normalfont\scriptsize\mbox{def}}}{=} \,%
+}%
+
+%% Equals by definition (triangle version)
+\newcommand*\eqdeft{%
+    \, \stackrel{\mathclap{\normalfont\mbox{$\scriptscriptstyle\triangle$}}}{=} \,%
+}%
+
+% Equals by hypothesis
+\newcommand*\eqhp{%
+    \, \stackrel{\mathclap{\normalfont\scriptsize\mbox{Hp}}}{=} \,%
+}%
+
+%% Equals?
+\newcommand*\eqq{%
+    \, \stackrel{\mathclap{\normalfont\scriptsize\mbox{?}}}{=} \,%
+}%
+
+%% Equals because of previous statement
+\newcommand*\eqprev{%
+    \, \stackrel{\mathclap{\normalfont\mbox{$\scriptscriptstyle\uparrow$}}}{=} \,%
+}%
+
+%% Custom equals
+\newcommand*{\eqx}[1]{%
+    \, \stackrel{\mathclap{\normalfont\scriptsize\mbox{#1}}}{=} \,%
+}%
+
+%% Custom less than
+\newcommand*{\lex}[1]{%
+    \, \stackrel{\mathclap{\normalfont\scriptsize\mbox{#1}}}{\leq} \,%
+}%
+\newcommand*{\lesx}[1]{%
+    \, \stackrel{\mathclap{\normalfont\scriptsize\mbox{#1}}}{\leqslant} \,%
+}%
+\newcommand*{\lesq}{\leqslant}%
+
+%% Custom greater than
+\newcommand*{\gesq}{\geqslant}%
+\newcommand*{\gex}[1]{%
+    \, \stackrel{\mathclap{\normalfont\scriptscriptstyle\mbox{#1}}}{\geq} \,%
+}%
+\newcommand*{\gesx}[1]{%
+    \, \stackrel{\mathclap{\normalfont\scriptscriptstyle\mbox{#1}}}{\geqslant} \,%
+}%
+
+%% Custom congruence
+\newcommand*{\equivx}[1]{%
+    \, \stackrel{\mathclap{\normalfont\scriptscriptstyle\mbox{#1}}}{\equiv} \,%
+}%
+
+%% Modular congruence in brackets
+\newcommand*{\Mod}[1]{\, (\mathrm{mod}\, #1)}%
+
+%% Vertical equals sign
+\newcommand*{\verteq}{\rotatebox{90}{$\,=$}}%
+
+%% ------------------------------------------------- %%
+
+%% 6.2.2 - Arrows
+
+%% 6.2.2.1 - Vertical arrows
+
+%% Long down arrows
+\newcommand*{\xdownarrow}[1]{%
+  {\left\downarrow\vbox to #1{}\right.\kern-\nulldelimiterspace}
+}%
+
+\newcommand*{\xDownarrow}[1]{%
+  {\left\Downarrow\vbox to #1{}\right.\kern-\nulldelimiterspace}
+}%
+
+%% Long up arrows
+\newcommand*{\xuparrow}[1]{%
+  {\left\uparrow\vbox to #1{}\right.\kern-\nulldelimiterspace}
+}%
+
+\newcommand*{\xUparrow}[1]{%
+  {\left\Uparrow\vbox to #1{}\right.\kern-\nulldelimiterspace}
+}%
+
+%% 6.2.2.2 - Hook arrows
+
+%% Hook right arrow
+\newcommand*{\hooklongrightarrow}{\lhook\joinrel\longrightarrow}%
+
+%% Hook left arrow
+\newcommand*{\hooklongleftarrow}{\longleftarrow\joinrel\rhook}%
+
+%% 6.2.2.3 - Squared arrows (tikz)
+
+\tikzset{square arrow/.style={to path={-- ++(0,.4) -| (\tikztotarget)}}}%
+\tikzset{square arrow below/.style={to path={-- ++(0,-.4) -| (\tikztotarget)}}}%
+
+%% ------------------------------------------------- %%
+
+%% 6.2.5 - Function related
+
+%% Identity
+\newcommand*{\idty}{\text{id}}%
+
+%% Image
+\DeclareMathOperator{\Ima}{\fontfamily{rm}Im}%
+
+%% Support
+\DeclareMathOperator{\supp}{\fontfamily{rm}supp}%
+
+%% Trace
+\DeclareMathOperator{\Tr}{\fontfamily{rm}tr}
+
+%% ------------------------------------------------- %%
+
+%% 6.2.5 - Function definitions
+
+%% Simple fucntion map definition f : x |-> y 
+\newcommand*{\fnDef}[3][]{%
+    \def\temp{#1}\ifx\temp\empty
+    \else
+        #1 \; \colon \,
+    \fi
+    #2 \: \longmapsto \: #3}%
+    
+%% Simple fucntion map definition with xmapsto x |-f-> y
+\newcommand*{\fnxDef}[3][]{%
+    #2 \: \xmapsto{#1} \: #3}%
+    
+%% Simple function definition f : A -> B
+\newcommand*{\fnsDef}[3][]{%
+    \def\temp{#1}\ifx\temp\empty
+    \else
+        #1 \; \colon \,
+    \fi
+    #2 \, \longrightarrow \, #3}%
+    
+%% Simple fucntion definition with xarrow A -f-> B
+\newcommand*{\fnsxDef}[3][]{%
+    #2 \, \xrightarrow{#1} \, #3}%
+
+%% Complete function definition f : A -> B : x |-> y
+\newcommand*{\fncDef}[5][]{%
+    \def\temp{#1}\ifx\temp\empty
+    \else
+        #1 \; \colon \,
+    \fi
+    #2 \longrightarrow \, #3 \: \colon #4  \,\longmapsto \, #5%
+}%
+
+%% Extended function definition
+\newcommand*{\fneDef}[5]{%
+    \renewcommand\arraystretch{1.14}%
+    \begin{array}{c @{} c @{} c @{} c @{}}
+        #1 \; \colon \, & #2 & \; \longrightarrow \; & #3 \\
+        & #4 & \; \longmapsto \; & #5
+    \end{array}
+}%
+
+%% ------------------------------------------------- %%
+
+%% 6.2.4 - Norms
+
+%% Norm
+\newcommand*{\norm}[1]{\left\Vert #1 \right\Vert}%
+
+%% Short norm
+\newcommand*{\norma}[1]{\Vert #1 \Vert}%
+
+%% Short norm of
+\newcommand*{\normaof}[2][]{\Vert #2 \Vert _{#1}}%
+
+%% Norm of
+\newcommand*{\normof}[2][]{\left\Vert #2 \right\Vert _{#1}}%
+
+%% Squared norm
+\newcommand*{\snorm}[1]{\left\Vert #1 \right\Vert ^2}%
+
+%% Squared norm of
+\newcommand*{\snormof}[2][]{\left\Vert #2 \right\Vert ^2 _{#1}}%
+
+%% New norm (three vertical bar version)
+\newcommand*{\normt}[1]{{%
+    \left\vert\kern-0.25ex\left\vert\kern-0.25ex\left\vert #1 
+    \right\vert\kern-0.25ex\right\vert\kern-0.25ex\right\vert
+}}%
+
+%% New norm of (three vertical bar version)
+\newcommand*{\normtof}[2][]{{%
+    \left\vert\kern-0.25ex\left\vert\kern-0.25ex\left\vert #2
+    \right\vert\kern-0.25ex\right\vert\kern-0.25ex\right\vert _{#1}
+}}%
+
+%% ------------------------------------------------- %%
+
+%% 6.2.5 - Logical operators
+
+%% For all ... in ...
+\newcommand*{\fain}[2]{\forall #1 \in #2}%
+
+%% For all ... in ... (with a space before it)
+\newcommand*{\fains}[2]{\;\, \forall #1 \in #2}%
+
+%% New exists
+\newcommand*{\existx}{\exists \,}%
+
+%% Such that
+\newcommand*{\tc}{\: : \:}%
+
+%% 6.2.6 - Hat, overline, tilde
+
+%% Wide hat
+\newcommand*{\hatx}[1]{\widehat{#1}}%
+
+%% Inverted hat
+\newcommand*{\invhat}[1]{%
+    \mathbin{\mathop{#1}\limits^{\text{\rotatebox{180}{$\widehat{}$}}}}
+}%
+
+%% Overline
+\newcommand*{\barx}[1]{\overline{#1}}%
+
+%% Tilde
+\newcommand*{\tildex}[1]{\widetilde{#1}}%
+
+%% Tilde pi
+\newcommand*{\tpi}{\widetilde{\pi}}%
+
+%% Tilde f
+\newcommand*{\tf}{\widetilde{f}}%
+
+%% 6.2.7 - Prime, inverse
+
+%% Prime
+\newcommand*{\primex}{^\prime}%
+
+%% Inverse
+\newcommand*{\inv}{^{-1}}%
+
+%% ------------------------------------------------- %%
+
+%% 6.2.8 - Inf, sup, min, max
+
+%% Fast max
+\newcommand*{\maxx}[1]{\max_{#1}}%
+
+%% Max with two conditions
+\newcommand*{\maxd}[2]{\max_{\substack{#1 \\ #2}}}%
+
+%% Fast max
+\newcommand*{\supx}[1]{\sup_{#1}}%
+
+%% Max with two conditions
+\newcommand*{\supd}[2]{\sup_{\substack{#1 \\ #2}}}%
+
+%% Fast max
+\newcommand*{\minx}[1]{\min_{#1}}%
+
+%% Max with two conditions
+\newcommand*{\mind}[2]{\min_{\substack{#1 \\ #2}}}%
+
+%% Fast max
+\newcommand*{\infx}[1]{\inf_{#1}}%
+
+%% Max with two conditions
+\newcommand*{\infd}[2]{\inf_{\substack{#1 \\ #2}}}%
+
+%% ------------------------------------------------- %%
+
+%% 6.2.9 - Various spaces
+
+%% Fast blackboard style and mathcal
+\newcommand*{\bb}[1]{\mathbb{#1}}%
+\newcommand*{\mc}[1]{\mathcal{#1}}%
+
+%% R, C, Z (with additional options)
+\newcommand*{\spR}[1][]{\mathbb{R}%
+    \def\temp{#1}\ifx\temp\empty
+    \else
+        ^{#1}
+    \fi
+}%
+\newcommand*{\spC}[1][]{\mathbb{C}%
+    \def\temp{#1}\ifx\temp\empty
+    \else
+        ^{#1}
+    \fi
+}%
+\newcommand*{\spZ}[1][]{\mathbb{Z}%
+    \def\temp{#1}\ifx\temp\empty
+    \else
+        _{#1}
+    \fi
+}%
+
+%% L1(R)
+\newcommand*{\spLR}{L^1(\spR)}%
+
+%% S'(R)
+\newcommand*{\spSR}{\mathcal{S}^\prime(\spR)}%
+
+%% M(d)
+\newcommand*{\spMd}{\mathcal{M}(d)}%
+
+%% Others
+\newcommand*{\spH}{\mathcal{H}}%
+\newcommand*{\spHpi}{\spH_\pi}%
+\newcommand*{\spM}{\mathcal{M}}%
+\newcommand*{\spCc}{\mathcal{C}}%
+\newcommand*{\spD}{\mathcal{D}}%
+\newcommand*{\spP}{\mathcal{P}}%
+\newcommand*{\spN}{\mathcal{N}}%
+\newcommand*{\spL}{\mathcal{L}}%
+\newcommand*{\spE}{\mathcal{E}}%
+\newcommand*{\spLI}{L^\infty}%
+\newcommand*{\spT}{\mathbb{T}}%
+\newcommand*{\spB}{\mathcal{B}}%
+
+%% ------------------------------------------------- %%
+
+%% 6.2.10 - Cases
+
+%% Cases with arrows
+\tikzset{arrowcases/.style={matrix anchor=west,%
+    nodes={anchor=base west,%
+         name=arrc-\the\pgfmatrixcurrentrow-\the\pgfmatrixcurrentcolumn},%
+    execute at begin cell=\node\bgroup\math\displaystyle,%
+    execute at end cell=\endmath\egroup;,%
+    ampersand replacement=\&}%
+}
+
+\def\beginarrowcases#1\endarrowcases{%
+    \begin{tikzpicture}[baseline=(O)]
+        \hspace{1em}\matrix [arrowcases] {%
+            #1
+        };
+        \coordinate (A) at (arrc-1-1.west);
+        \coordinate (B) at (arrc-\the\pgfmatrixcurrentrow-1.west);
+        \coordinate (start) at ($(A)!0.5!(B) - (1.2em,0)$);
+        \foreach \nn in {1,...,\pgfmatrixcurrentrow} {
+            \draw[->] (start) -- (arrc-\nn-1.west);
+        };
+        \coordinate (O) at ($(start)-(0,0.5ex)$);
+        \node at (-1em,0) {};
+    \end{tikzpicture}%
+}
+
+%% Very dirty trick
+\newcommand*{\casex}[1]{%
+    \beginarrowcases
+        #1
+    \endarrowcases
+}
+
+%% ------------------------------------------------- %%
+
+%% 6.2.11 - Others
+
+%% Sum
+\newcommand*{\sumx}[3]{\sum_{#1}^{#2}{#3}}%
+
+%% Integral
+\newcommand*{\intx}[3]{\int_{#1}^{#2}{#3}}%
+
+%% New convolutions symbol
+\newcommand*{\cconv}{^{\scriptstyle\circled[0pt]{$*$}}}%
+\newcommand*{\fconv}{^{\scriptstyle\frame{$*$}}}%
+
+%% Internal product
+\newcommand*{\inprod}[2]{\langle\, #1,\, #2 \,\rangle}%
+
+%% Bigger dot
+\makeatletter
+\newcommand*\bigcdot{\mathpalette\bigcdot@{.5}}
+\newcommand*\bigcdot@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
+\makeatother
+
+%% 6.2.11.1 - Fourier related
+
+%% Fourier transform
+\newcommand*{\Ftr}{\mathcal{F}}%
+
+
+%% Fourier Transform
+\newcommand*{\ftr}[3]{\int_{\spR}e^{-2\pi i #2#3}f(#2)d#2}%
+
+% Inverse Fourier Transform
+\newcommand*{\ftir}[3]{\int_{\spR}e^{2\pi i #2#3}\hatx{f}(#2)d#2}%
+
+%% Fourier Series
+\newcommand*{\fsr}[2]{\sum_{#1=-\infty}^{+\infty}c_{#1} e^{2\pi i #1#2}}%
+
+%% ------------------------------------------------- %%
+
+%% 6.3 - Page formatting
+
+%% ------------------------------------------------- %%
+
+%% Horizontal separator
+\newcommand*{\separator}{%
+    \vspace{2mm}\par\noindent\rule{\textwidth}{0.4pt}%
+    \vspace{2mm}%
+}%
+
+%% Custom enumerate: prime item
+\makeatletter
+\newcommand\primeitemx{%
+    \item[(\alph{enumi}\textquotesingle)]%
+    \def\@currentlabel{(\alph{enumi}\textquotesingle)}%
+}%
+\makeatother
+
+%% 6.3.1 - Foot notes
+
+%% Custom footnote symbol
+\renewcommand*{\thefootnote}{\fnsymbol{footnote}}%
+\renewcommand*\thempfootnote{\fnsymbol{mpfootnote}}%
+\setlength{\footnotesep}{.8\baselineskip}%
+
+%% ================================================= %%
+%% 7 - Notex environments
+%% ================================================= %%
+
+%% 7.1 - Counters
+
+\newcounter{thm}[section]
+\newcounter{defn}[section]
+\newcounter{exmp}[section]
+\newcounter{rmrk}[section]
+
+%% ------------------------------------------------- %%
+
+%% 7.2 - Proof environment
+
+%% Proof name change
+\addto\captionsitalian{\renewcommand*{\proofname}{\normalfont\bfseries Dim.}}
+
+%% Proof environment template
+\newenvironment{prooftemplate}[1]{%
+    \vspace{1mm}\par\nopagebreak
+    \begin{mdframed}[
+        backgroundcolor=FriendlyBlue!5,
+        leftline=false,bottomline=false,topline=false,rightline=false,
+        innerrightmargin=.5em,innertopmargin=.5em,innerbottommargin=.8em,
+        innerleftmargin=.5em,
+        skipabove=.5\baselineskip
+    ]
+    \begin{adjustwidth}{1em}{.5em}%
+        \par\noindent\normalsize
+        \hspace{-1mm}\textbf{#1}\hspace{1mm}
+        \small
+}{%
+        \ignorespaces\nopagebreak
+        \end{adjustwidth}
+    \end{mdframed}
+    \vspace{-1mm}
+}%
+
+%% Proof with background box
+\newenvironment*{proofx}[1][Dim.]{%
+    \prooftemplate{#1}%
+}{%
+    \hspace*{\fill}$\square$\endprooftemplate%
+}%
+
+%% Proof with background box, no QED symbol
+\newenvironment*{proofx*}[1][Dim.]{%
+    \prooftemplate{#1}%
+}{\endprooftemplate}%
+
+%% ------------------------------------------------- %%
+
+%% 7.3 - General environment style
+
+%% Environment title
+\newcommand*{\envTitle}[5]{%
+    \ifthenelse{\equal{#1}{1}}{%
+        \colorbox{FriendlyBlue!#5}{\textbf{#3#4\envName{#1}{#2}}}%
+    }{\ignorespaces}%
+    \ifthenelse{\equal{#1}{2}}{%
+        \colorbox{FriendlyOrange!#5}{\textbf{#3#4\envName{#1}{#2}}}%
+    }{\ignorespaces}%
+    \ifthenelse{\equal{#1}{3}}{%
+        \colorbox{FriendlyGreen!#5}{\textbf{#3#4\envName{#1}{#2}}}%
+    }{\ignorespaces}%
+    \ifthenelse{\equal{#1}{4}}{%
+        \colorbox{FriendlyMidnight!#5}{\textbf{#3#4\envName{#1}{#2}}}%
+    }{\ignorespaces}%
+}%
+
+%% Environment name
+\newcommand*{\envName}[2]{%
+    \ignorespaces
+    \ifx&#2&
+    \else
+        \ifthenelse{\equal{#1}{1}}{%
+            ~(\,\thBlue{#2}\,)\ignorespaces
+        }{\ignorespaces}%
+        \ifthenelse{\equal{#1}{2}}{%
+            ~(\,\defOrange{#2}\,)\ignorespaces
+        }{\ignorespaces}%
+        \ifthenelse{\equal{#1}{3}}{%
+            ~(\,\exForest{#2}\,)\ignorespaces
+        }{\ignorespaces}%
+        \ifthenelse{\equal{#1}{4}}{%
+            ~(\,\rmrkMidnight{#2}\,)\ignorespaces
+        }{\ignorespaces}%
+    \fi
+}%
+
+%% Environment number
+\newcommand*{\envNumber}[1]{%
+    \thesection#1
+}%
+
+%% Environment template
+\newenvironment*{envtemplate}[9]{%
+    \vspace{1.5mm}\par\nopagebreak
+    \begin{mdframed}[
+        linewidth=3pt,
+        linecolor=#5,
+        backgroundcolor=#6!12,
+        bottomline=false,topline=false,rightline=false,
+        innerrightmargin=#8,innertopmargin=3pt,innerbottommargin=#9,
+        innerleftmargin=.5em,% Distance between vertical rule & content
+        skipabove=.5\baselineskip,
+        % nobreak=true
+    ]
+        \par\noindent\normalfont\normalfont
+        \ifx&#4&
+            \envTitle{#1}{#2}{#3}{}{#7}
+        \else
+            \envTitle{#1}{#2}{#3}{~\envNumber{#4}}{#7}
+        \fi
+        \begin{adjustwidth}{1em}{0pt}%
+}{%
+        \unskip%
+        \end{adjustwidth}%
+    \end{mdframed}%
+}%
+
+%% "Simple" environment (only lateral bar)
+\newenvironment*{sEnvtemplate}[5]{%
+    \envtemplate{#1}{#2}{#3}{#4}{#5}{white}{12}{0pt}{3pt}%
+}{\endenvtemplate}%
+
+%% "Complete" environment (lateral bar and background)
+\newenvironment*{cEnvtemplate}[6]{%
+    \envtemplate{#1}{#2}{#3}{#4}{#5}{#6}{4}{12pt}{6pt}%
+}{\endenvtemplate}%
+
+%% 7.3.1 Theorem environments
+
+%% Theorem
+\newenvironment*{thm}[1][]{%
+    \refstepcounter{thm}%
+    \sEnvtemplate{1}{#1}{Teorema}{\thethm}{FriendlyBlue}%
+}{\endsEnvtemplate}%
+
+\newenvironment*{thmx}[1][]{%
+    \refstepcounter{thm}%
+    \cEnvtemplate{1}{#1}{Teorema}{\thethm}{FriendlyBlue}{FriendlyBlue}%
+}{\endcEnvtemplate}%
+
+\newenvironment*{thm*}[1][]{%
+    \sEnvtemplate{1}{#1}{Teorema}{}{FriendlyBlue}%
+}{\endsEnvtemplate}%
+
+\newenvironment*{thmx*}[1][]{%
+    \cEnvtemplate{1}{#1}{Teorema}{}{FriendlyBlue}{FriendlyBlue}%
+}{\endcEnvtemplate}%
+
+%% Lemma
+\newenvironment*{lem}[1][]{%
+    \refstepcounter{thm}%
+    \sEnvtemplate{1}{#1}{Lemma}{\thethm}{FriendlyBlue}%
+}{\endsEnvtemplate}%
+
+\newenvironment*{lemx}[1][]{%
+    \refstepcounter{thm}%
+    \cEnvtemplate{1}{#1}{Lemma}{\thethm}{FriendlyBlue}{FriendlyBlue}%
+}{\endcEnvtemplate}%
+
+\newenvironment*{lem*}[1][]{%
+    \sEnvtemplate{1}{#1}{Lemma}{}{FriendlyBlue}%
+}{\endsEnvtemplate}%
+
+\newenvironment*{lemx*}[1][]{%
+    \cEnvtemplate{1}{#1}{Lemma}{}{FriendlyBlue}{FriendlyBlue}%
+}{\endcEnvtemplate}%
+
+%% Proposition
+\newenvironment*{prop}[1][]{%
+    \refstepcounter{thm}%
+    \sEnvtemplate{1}{#1}{Proposizione}{\thethm}{FriendlyBlue}%
+}{\endsEnvtemplate}%
+
+\newenvironment*{propx}[1][]{%
+    \refstepcounter{thm}%
+    \cEnvtemplate{1}{#1}{Proposizione}{\thethm}{FriendlyBlue}{FriendlyBlue}%
+}{\endcEnvtemplate}%
+
+\newenvironment*{prop*}[1][]{%
+    \sEnvtemplate{1}{#1}{Proposizione}{}{FriendlyBlue}%
+}{\endsEnvtemplate}%
+
+\newenvironment*{propx*}[1][]{%
+    \cEnvtemplate{1}{#1}{Proposizione}{}{FriendlyBlue}{FriendlyBlue}%
+}{\endcEnvtemplate}%
+
+%% Corollary
+\newenvironment*{corl}[1][]{%
+    \refstepcounter{thm}%
+    \sEnvtemplate{1}{#1}{Corollario}{\thethm}{FriendlyBlue}%
+}{\endsEnvtemplate}%
+
+\newenvironment*{corlx}[1][]{%
+    \refstepcounter{thm}%
+    \cEnvtemplate{1}{#1}{Corollario}{\thethm}{FriendlyBlue}{FriendlyBlue}%
+}{\endcEnvtemplate}%
+
+\newenvironment*{corl*}[1][]{%
+    \sEnvtemplate{1}{#1}{Corollario}{}{FriendlyBlue}%
+}{\endsEnvtemplate}%
+
+\newenvironment*{corlx*}[1][]{%
+    \cEnvtemplate{1}{#1}{Corollario}{}{FriendlyBlue}{FriendlyBlue}%
+}{\endcEnvtemplate}%
+
+%% Property
+\newenvironment*{prty}[1][]{%
+    \refstepcounter{thm}%
+    \sEnvtemplate{1}{#1}{Proprietà}{\thethm}{FriendlyBlue}%
+}{\endsEnvtemplate}%
+
+\newenvironment*{prtyx}[1][]{%
+    \refstepcounter{thm}%
+    \cEnvtemplate{1}{#1}{Proprietà}{\thethm}{FriendlyBlue}{FriendlyBlue}%
+}{\endcEnvtemplate}%
+
+\newenvironment*{prty*}[1][]{%
+    \sEnvtemplate{1}{#1}{Proprietà}{}{FriendlyBlue}%
+}{\endsEnvtemplate}%
+
+\newenvironment*{prtyx*}[1][]{%
+    \cEnvtemplate{1}{#1}{Proprietà}{}{FriendlyBlue}{FriendlyBlue}%
+}{\endcEnvtemplate}%
+
+%% 7.3.2 - Definition environment
+
+\newenvironment*{defn}[1][]{%
+    \refstepcounter{defn}%
+    \sEnvtemplate{2}{#1}{Definizione}{\thedefn}{FriendlyOrange}%
+}{\endsEnvtemplate}%
+
+\newenvironment*{defnx}[1][]{%
+    \refstepcounter{defn}%
+    \cEnvtemplate{2}{#1}{Definizione}{\thedefn}{FriendlyOrange}{FriendlyOrange}%
+}{\endcEnvtemplate}%
+
+\newenvironment*{defn*}[1][]{%
+    \sEnvtemplate{2}{#1}{Definizione}{}{FriendlyOrange}%
+}{\endsEnvtemplate}%
+
+\newenvironment*{defnx*}[1][]{%
+    \cEnvtemplate{2}{#1}{Definizione}{}{FriendlyOrange}{FriendlyOrange}%
+}{\endcEnvtemplate}%
+
+%% 7.3.3 - Example environment
+
+%% Example
+\newenvironment*{exmp}[1][]{%
+    \refstepcounter{exmp}%
+    \sEnvtemplate{3}{#1}{Esempio}{\theexmp}{FriendlyGreen}%
+}{\endsEnvtemplate}%
+
+\newenvironment*{exmpx}[1][]{%
+    \refstepcounter{exmp}%
+    \cEnvtemplate{3}{#1}{Esempio}{\theexmp}{FriendlyGreen}{FriendlyGreen}%
+}{\endcEnvtemplate}%
+
+\newenvironment*{exmp*}[1][]{%
+    \sEnvtemplate{3}{#1}{Esempio}{}{FriendlyGreen}%
+}{\endsEnvtemplate}%
+
+\newenvironment*{exmpx*}[1][]{%
+    \cEnvtemplate{3}{#1}{Esempio}{}{FriendlyGreen}{FriendlyGreen}%
+}{\endcEnvtemplate}%
+
+%% Counterexample
+\newenvironment*{cexmp}[1][]{%
+    \refstepcounter{exmp}%
+    \sEnvtemplate{3}{#1}{Controesempio}{\theexmp}{FriendlyGreen}%
+}{\endsEnvtemplate}%
+
+\newenvironment*{cexmpx}[1][]{%
+    \refstepcounter{exmp}%
+    \cEnvtemplate{3}{#1}{Controesempio}{\theexmp}{FriendlyGreen}{FriendlyGreen}%
+}{\endcEnvtemplate}%
+
+\newenvironment*{cexmp*}[1][]{%
+    \sEnvtemplate{3}{#1}{Controesempio}{}{FriendlyGreen}%
+}{\endsEnvtemplate}%
+
+\newenvironment*{cexmpx*}[1][]{%
+    \cEnvtemplate{3}{#1}{Controesempio}{}{FriendlyGreen}{FriendlyGreen}%
+}{\endcEnvtemplate}%
+
+%% 7.4.4 - Remark environment
+
+\newenvironment*{rmrk}[1][]{%
+    \refstepcounter{rmrk}%
+    \sEnvtemplate{4}{#1}{Osservazione}{\thermrk}{FriendlyMidnight}%
+}{\endsEnvtemplate}%
+
+\newenvironment*{rmrkx}[1][]{%
+    \refstepcounter{thm}
+    \cEnvtemplate{4}{#1}{Osservazione}{\thethm}{FriendlyMidnight}{FriendlyMidnight}%
+}{\endcEnvtemplate}%
+
+\newenvironment*{rmrk*}[1][]{%
+    \sEnvtemplate{4}{#1}{Osservazione}{}{FriendlyMidnight}%
+}{\endsEnvtemplate}%
+
+\newenvironment*{rmrkx*}[1][]{%
+    \cEnvtemplate{4}{#1}{Osservazione}{}{FriendlyMidnight}{FriendlyMidnight}%
+}{\endcEnvtemplate}%
+
+%% ------------------------------------------------- %%
+
+%% 7.4 - Notes environments
+
+%% Simple note
+\newenvironment*{note}{%
+    \textbf{Nota:}%
+}{}%
+
+%% Framed note
+\newenvironment*{fnote}{%
+    \mdfsetup{%
+        frametitle={\colorbox{white}{\,Nota\,}},
+        frametitleaboveskip=-\ht\strutbox,
+        frametitlealignment=\raggedright
+    }%
+    \begin{mdframed}[innerbottommargin=1em]%
+}{\end{mdframed}}%
+
+%% Note with background
+\newenvironment*{notex}[1][Nota]{%
+    \vspace{1mm}\par\nopagebreak
+    \begin{mdframed}[
+        backgroundcolor=FriendlyMidnight!5,
+        leftline=false,bottomline=false,topline=false,rightline=false,
+        innerrightmargin=.5em,innertopmargin=.5em,innerbottommargin=.5em,
+        innerleftmargin=.5em,
+        skipabove=.5\baselineskip
+    ]
+        \begin{hangparas}{1em}{1}%
+            \par\parindent=.5em\rightskip=.5em
+            \small\textbf{#1:}\hspace{2mm}
+            \footnotesize\nopagebreak\ignorespaces
+}{%
+    \par\ignorespaces\nopagebreak
+    \end{hangparas}%
+    \end{mdframed}%
+    \vspace{-2.5mm}%
+}%
+
+%% ------------------------------------------------- %%
+
+%% 7.5 - Boxed environments
+
+%% Boxed paragraph
+\newenvironment*{boxedpar}{%
+    \begin{mdframed}[
+        backgroundcolor=white,
+        linewidth=1pt,
+        linecolor=black!40,
+        innertopmargin=-14pt,
+        skipabove=0pt
+    ]
+}{%
+    \end{mdframed}%
+}%
+
+%% Color text box
+\newenvironment*{cbox}[1][FriendlyMidnight!5]{%
+    \vspace{2mm}\par\nopagebreak
+    \begin{mdframed}[
+        backgroundcolor=#1,
+        leftline=false,bottomline=false,topline=false,rightline=false,
+        innerrightmargin=.5em,innertopmargin=.5em,innerbottommargin=.5em,
+        innerleftmargin=.5em,
+        skipabove=.5\baselineskip
+    ]
+}{%
+    \end{mdframed}\unskip%
+}%
+
+%% Blue box
+\newenvironment*{bluebox}{%
+    \begin{cbox}[FriendlyBlue!6]
+}{%
+    \end{cbox}
+}%
+
+%% Framed text
+\newenvironment*{tbox}[1][FriendlyMidnight!5]{%
+    \vspace{2mm}\par\nopagebreak
+    \begin{mdframed}[
+        backgroundcolor=#1,
+        leftline=false,bottomline=false,topline=false,rightline=false,
+        innerrightmargin=.5em,innertopmargin=.5em,innerbottommargin=.5em,
+        innerleftmargin=.5em,
+        skipabove=.5\baselineskip
+    ]
+}{%
+    \end{mdframed}%
+}%
+
+%% 7.5.1 - Side bar boxed environment
+
+%% Boxed text with side bar
+\newenvironment*{vtbox}[2][FriendlyMidnight]{%
+    \par%\nopagebreak
+    \begin{tcolorbox}[
+        blanker,
+        width=0.972\linewidth,
+        enlarge left by=0.028\linewidth,
+        before skip=3mm,
+        after skip=3mm,
+        borderline west = {4pt}{0pt}{#1},
+        top=.2em,
+        bottom=.2em,
+        left=1em,
+        breakable,
+        overlay unbroken and first={%
+            \node[
+                inner sep=0pt,
+                outer sep=0pt,
+                text width=0.025\linewidth,
+                align=none,
+                below right
+            ]
+            at ([xshift=-0.025\linewidth]frame.north west)
+            {%
+                \rotatebox[origin=rB]{90}{\textcolor{#1}{\textsc{#2}}\,}
+            };%
+        }%
+    ]
+        \setlength{\parskip}{.4em}%
+}{%
+    \end{tcolorbox}
+}%
+
+%% Clamp box with side bar
+\newenvironment*{clampbox}[2][FriendlyMidnight]{%
+    \par%\nopagebreak
+    \begin{tcolorbox}[
+        blanker,
+        width=.97\linewidth,
+        enlarge left by=.03\linewidth,
+        before skip=3mm,
+        after skip=3mm,
+        borderline west = {1.5pt}{0pt}{#1},
+        top=.6em,
+        bottom=.6em,
+        left=.5em,
+        breakable,
+        overlay unbroken and first={%
+            \draw[line width=1pt, #1] (frame.north west)   -- ++(0:.03\linewidth);
+            \node[
+                inner sep=0pt,
+                outer sep=0pt,
+                text width=.03\linewidth,
+                align=none,
+                below right
+            ]
+            at ([xshift=-.03\linewidth]frame.north west)
+            {%
+                \rotatebox[origin=rB]{90}{\textcolor{#1}{\textsc{#2}}\,}
+            };%
+        },
+        overlay unbroken and last={%
+            \draw[line width=1pt, #1] (frame.south west)   -- ++(0:.03\linewidth);
+        }%
+    ]
+        \setlength{\parskip}{.4em}%
+}{%
+    \end{tcolorbox}
+}%
+
+%% ------------------------------------------------- %%
+
+%% 7.6 - Quotes and quote environment
+
+%% Block quote
+
+\newcommand*\quotesize{60}%  
+
+\newcommand*{\openquote}{%
+    \tikz[remember picture,overlay,xshift=-4ex,yshift=-2.5ex]
+    \node (OQ) {\fontsize{\quotesize}{\quotesize}\fontfamily{qbk}\selectfont``};%
+    \kern0pt
+}%
+
+\newcommand*{\closequote}{%
+    \tikz[remember picture,overlay,xshift=4ex,yshift=-2ex]
+    \node (CQ) {\fontsize{\quotesize}{\quotesize}\fontfamily{qbk}\selectfont''};%
+}%
+   
+\colorlet{shadecolor}{white!0}
+
+\newcommand*\shadedauthorformat{\emph}%
+
+\newenvironment*{quotex}[1]{%
+    \def\authorfill{\hfill}\def\quotefill{}%
+    \def\shadequoteauthor{\par\authorfill\shadedauthorformat{#1}}%
+    \begin{snugshade}\begin{quote}\openquote
+}{%
+    \shadequoteauthor\quotefill%
+    \closequote\end{quote}\end{snugshade}%
+}%
+
+%% ================================================= %%
+%% 8 - Math formatting
+%% ================================================= %%
+
+%% Inverted underbrace
+\renewcommand*\useanchorwidth{T}%
+\stackMath
+
+%% Overbrace
+\newcommand*{\overbracex}[3][3pt]{\stackunder[#1]{#2}{\overbrace{\text{\scriptsize #3}}}}%
+
+%% Arrow
+\newcommand\vertarrowbox[3][6ex]{%
+    \def\arraystretch{.8}
+    \begin{array}[t]{@{}c@{}}
+        #2 \\
+        \left\uparrow\vcenter{\hrule height #1}\right.\kern-\nulldelimiterspace\\
+        \makebox[0pt]{\scriptsize$#3$}
+    \end{array}%
+}
+
+%% Compact equation
+\newcommand*{\compacteq}{%
+    \setlength{\belowdisplayskip}{3pt}%
+    \setlength{\abovedisplayskip}{3pt}%
+}%
+
+%% Not so compact equation
+\newcommand*{\notsocompacteq}{%
+    \setlength{\belowdisplayskip}{7pt}%
+    \setlength{\abovedisplayskip}{7pt}%
+}%
+
+%% ================================================= %%
+%% 9 - References
+%% ================================================= %%
+
+%% Hyperref and references
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=false
+}
+
+%% References
+\newcommand*{\bref}[1]{(\textbf{\ref{#1}})}%
+\newcommand*{\tref}[1]{(\bt{\ref{#1}})}%
+\newcommand*{\dref}[1]{(\bd{\ref{#1}})}%
+\newcommand*{\eref}[1]{(\bdg{\ref{#1}})}%
+\newcommand*{\rref}[1]{(\bm{\ref{#1}})}%
+\newcommand*{\wref}[2]{\href{#1}{\blue{\underline{\smash{#2}}}}}%
+
+%% Web reference with Soul
+\setul{1pt}{.4pt}
+\newcommand*{\wsref}[2]{\href{#1}{\blue{\ul{#2}}}}%
+
+%% Reference counters
+
+%% Theorem
+\makeatletter
+\renewcommand*{\p@thm}{\thesection}%
+\makeatother
+
+%% Definition
+\makeatletter
+\renewcommand*{\p@defn}{\thesection}%
+\makeatother
+
+%% Example
+\makeatletter
+\renewcommand{\p@exmp}{\thesection}%
+\makeatother
+
+%% Remark
+\makeatletter
+\renewcommand*{\p@rmrk}{\thesection}%
+\makeatother
+
+%% 9.1 - Alternative naming convention
+
+\renewcommand*{\envNumber}[1]{%
+    \thesection/#1
+}%
+
+%% Reference counters redefinion
+
+%% Theorem
+\makeatletter
+\renewcommand*{\p@thm}{\thesection/}%
+\makeatother
+
+%% Definition
+\makeatletter
+\renewcommand*{\p@defn}{\thesection/}%
+\makeatother
+
+%% Example
+\makeatletter
+\renewcommand{\p@exmp}{\thesection/}%
+\makeatother
+
+%% Remark
+\makeatletter
+\renewcommand*{\p@rmrk}{\thesection/}%
+\makeatother
+
+%% ================================================= %%
+%% 10 - Experimental
+%% ================================================= %%
+
+% Experimental features
