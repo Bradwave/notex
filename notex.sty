@@ -161,9 +161,7 @@
 \usepackage[dvipsnames]{xcolor}
 
 %% 1.6 - Various packages
-\usepackage{enumitem,textcomp,titling,longtable,stackengine,marginnote,multicol,blindtext,changepage,
-    marginnote,fancyhdr,titlesec,hanging,etoolbox,framed,varwidth,environ,arydshln,booktabs,witharrows,array,
-    bibentry,pifont,svg,upgreek,caption,soul}
+\usepackage{enumitem,textcomp,titling,longtable,stackengine,marginnote,multicol,blindtext,changepage,marginnote,fancyhdr,titlesec,hanging,etoolbox,framed,varwidth,environ,array,arydshln,booktabs,witharrows,bibentry,pifont,svg,upgreek,caption,soul,accents,trimclip}
 \usepackage[skins,breakable]{tcolorbox}
 
 %% 1.7 - Frames
@@ -324,6 +322,10 @@
 \newcommand*\circled[2][0.5pt]{\tikz[baseline=(char.base)]{%
     \node[shape=circle,draw,inner sep=#1] (char) {#2};}}%
     
+%% Code
+\newcommand*{\codex}[1]{\colorbox{FriendlyMidnight!5}{\footnotesize\texttt{#1}}}
+\newcommand*{\coderx}[1]{\colorbox{FriendlyMidnight!5}{\texttt{#1}}}
+    
 %% ------------------------------------------------- %%
 
 %% 6.1.1 - Highlights and boxes
@@ -394,14 +396,15 @@
 \newdimen\SOUL@dimen
 \makeatother
 \newcommand*{\hlc}[2][black!5]{{%
-  \sethlcolor{#1}\hl{\,#2\,}  
-}}
+  \sethlcolor{#1}\hl{\,#2\,}~%\
+}}%
 
-\renewcommand*{\highgen}[1]{{\hlc[black!5]{#1}}}%
-\renewcommand*{\highthm}[1]{{\hlc[FriendlyBlue!12]{#1}}}%
-\renewcommand*{\highdef}[1]{{\hlc[FriendlyOrange!12]{#1}}}%
-\renewcommand*{\highexmp}[1]{{\hlc[FriendlyGreen!14]{#1}}}%
-\renewcommand*{\highrmrk}[1]{{\hlc[FriendlyMidnight!12]{#1}}}%
+% These don't always work.
+% \renewcommand*{\highgen}[1]{{\hlc[black!5]{{#1}}}}%
+% \renewcommand*{\highthm}[1]{{\hlc[FriendlyBlue!12]{{#1}}}}%
+% \renewcommand*{\highdef}[1]{{\hlc[FriendlyOrange!12]{{#1}}}}%
+% \renewcommand*{\highexmp}[1]{{\hlc[FriendlyGreen!14]{{#1}}}}%
+% \renewcommand*{\highrmrk}[1]{{\hlc[FriendlyMidnight!12]{{#1}}}}%
 
 %% ------------------------------------------------- %%
 
@@ -641,6 +644,32 @@
 %% Tilde f
 \newcommand*{\tf}{\widetilde{f}}%
 
+%% New hat, bar, tilde
+
+\newcommand{\shat}[1]{%
+    \mathchoice
+    {\accentset{\scalebox{1.5}[.75]{\trimbox{0pt 1.1ex}{\textasciicircum}}}{#1}}
+    {\accentset{\scalebox{1.5}[.75]{\trimbox{0pt 1.1ex}{\textasciicircum}}}{#1}}
+    {\accentset{\scalebox{1}[.5]{\trimbox{0pt 1.2ex}{\textasciicircum}}}{#1}}
+    {\accentset{\scalebox{.8}[.4]{\trimbox{0pt 1.3ex}{\textasciicircum}}}{#1}}
+}%
+
+\newcommand{\stilde}[1]{%
+    \mathchoice
+    {\accentset{\scalebox{.9}[1]{\trimbox{0pt .6ex}{\textasciitilde}}}{#1}}
+    {\accentset{\scalebox{.9}[1]{\trimbox{0pt .6ex}{\textasciitilde}}}{#1}}
+    {\accentset{\scalebox{.7}[.8]{\trimbox{0pt .7ex}{\textasciitilde}}}{#1}}
+    {\accentset{\scalebox{.5}[.6]{\trimbox{0pt .8ex}{\textasciitilde}}}{#1}}
+}%
+
+\newcommand{\sbar}[1]{%
+    \mathchoice
+    {\accentset{\scalebox{.9}[.85]{\trimbox{0pt .55ex}{\textminus}}}{#1}}
+    {\accentset{\scalebox{.9}[.85]{\trimbox{0pt .55ex}{\textminus}}}{#1}}
+    {\accentset{\scalebox{.7}[.7]{\trimbox{0pt .65ex}{\textminus}}}{#1}}
+    {\accentset{\scalebox{.5}[.6]{\trimbox{0pt .75ex}{\textminus}}}{#1}}
+}%
+
 %% 6.2.7 - Prime, inverse
 
 %% Prime
@@ -812,6 +841,11 @@
 \newcommand*{\separator}{%
     \vspace{2mm}\par\noindent\rule{\textwidth}{0.4pt}%
     \vspace{2mm}%
+}%
+
+%% Versatile separator
+\newcommand*{\hseparator}{%
+    \rule{\linewidth}{0.4pt}%
 }%
 
 %% Custom enumerate: prime item
@@ -1195,6 +1229,19 @@
     \end{mdframed}%
 }%
 
+%% Framed paragraph
+\newenvironment*{framedpar}{%
+    \begin{mdframed}[
+        backgroundcolor=white,
+        linewidth=1pt,
+        linecolor=black,
+        innertopmargin=.5em,
+        skipabove=0pt
+    ]
+}{%
+    \end{mdframed}%
+}
+
 %% Color text box
 \newenvironment*{cbox}[1][FriendlyMidnight!5]{%
     \vspace{2mm}\par\nopagebreak
@@ -1367,6 +1414,13 @@
     \setlength{\abovedisplayskip}{7pt}%
 }%
 
+%% Arrow for WithArrows environment
+
+% Arrow with small text
+\newcommand*{\smallArrow}[3][i]{%
+    \Arrow[#1,tikz={text width=#2,font={\footnotesize\mdseries}}]{#3}%
+}%
+
 %% ================================================= %%
 %% 9 - References
 %% ================================================= %%
@@ -1442,5 +1496,3 @@
 %% ================================================= %%
 %% 10 - Experimental
 %% ================================================= %%
-
-% Experimental features
