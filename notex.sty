@@ -73,10 +73,10 @@
 %  1.3 - Images
 %  1.4 - Fonts
 %  1.5 - Colors
-%  1.6 - Various packages
-%  1.7 - Frames
-%  1.8 - Footer
-%  1.9 - Math
+%  1.6 - Math
+%  1.7 - Various packages
+%  1.8 - Frames
+%  1.9 - Footer
 %  1.10 - Tikz library
 %
 % 2 - Geometry
@@ -160,21 +160,21 @@
 %% 1.5 - Colors
 \usepackage[dvipsnames]{xcolor}
 
-%% 1.6 - Various packages
+%% 1.6 - Math
+\usepackage[nointegrals]{wasysym}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,mathtools,textcomp,stmaryrd,xfrac,tikz-cd,faktor}
+\usepackage[makeroom]{cancel}
+
+%% 1.7 - Various packages
 \usepackage{enumitem,textcomp,titling,longtable,stackengine,marginnote,multicol,blindtext,changepage,marginnote,fancyhdr,titlesec,hanging,etoolbox,framed,varwidth,environ,array,arydshln,booktabs,witharrows,bibentry,pifont,svg,upgreek,caption,soul,accents,trimclip}
 \usepackage[skins,breakable]{tcolorbox}
 
-%% 1.7 - Frames
+%% 1.8 - Frames
 \usepackage[framemethod=tikz]{mdframed}
 \renewcommand*{\marginfont}{\footnotesize}%
 
-%% 1.8 - Footer
+%% 1.9 - Footer
 \usepackage[symbol]{footmisc}
-
-%% 1.9 - Math
-\usepackage{amsmath,amsthm,amsfonts,amssymb,mathtools,textcomp,stmaryrd,xfrac,tikz-cd,faktor}
-\usepackage[makeroom]{cancel}
-\usepackage{wasysym}[nointegrals]
 
 %% 1.10 - Tikz options
 
@@ -265,7 +265,7 @@
 \newcommand*{\bred}[1]{\textcolor{FriendlyRed}{\textbf{#1}}}%
 \newcommand*{\blue}[1]{\textcolor{FriendlyDenim}{#1}}%
 \newcommand*{\bblue}[1]{\textcolor{FriendlyDenim}{\textbf{#1}}}%
-\newcommand*{\yel}[1]{\textcolor{FrendlyYellow}{#1}}%
+\newcommand*{\yel}[1]{\textcolor{FriendlyYellow}{#1}}%
 \newcommand*{\byel}[1]{\textcolor{FriendlyYellow}{\textbf{#1}}}%
 \newcommand*{\defOrange}[1]{\textcolor{FriendlyOrange}{#1}}%
 \newcommand*{\bd}[1]{\textbf{\defOrange{#1}}}%
@@ -362,17 +362,17 @@
 }%
 
 \newcommand*{\colorboxedAux}[3]{%
-  % #1: optional argument for color model
-  % #2: color specification
-  % #3: formula
-  \begingroup
-    \colorlet{cb@saved}{.}%
-    \color#1{#2}%
-    \boxed{%
-      \color{cb@saved}%
-      #3%
-    }%
-  \endgroup
+    % #1: optional argument for color model
+    % #2: color specification
+    % #3: formula
+    \begingroup
+        \colorlet{cb@saved}{.}%
+        \color#1{#2}%
+        \boxed{%
+            \color{cb@saved}%
+            #3%
+        }%
+    \endgroup
 }%
 
 %% Boxed math
@@ -646,28 +646,17 @@
 
 %% New hat, bar, tilde
 
-\newcommand{\shat}[1]{%
-    \mathchoice
-    {\accentset{\scalebox{1.5}[.75]{\trimbox{0pt 1.1ex}{\textasciicircum}}}{#1}}
-    {\accentset{\scalebox{1.5}[.75]{\trimbox{0pt 1.1ex}{\textasciicircum}}}{#1}}
-    {\accentset{\scalebox{1}[.5]{\trimbox{0pt 1.2ex}{\textasciicircum}}}{#1}}
-    {\accentset{\scalebox{.8}[.4]{\trimbox{0pt 1.3ex}{\textasciicircum}}}{#1}}
+\newcommand*{\sbar}[1]{%
+    \overset{\scalebox{.9}[.85]{\trimbox{0pt .55ex}{\textminus}}}{#1}%
 }%
-
-\newcommand{\stilde}[1]{%
-    \mathchoice
-    {\accentset{\scalebox{.9}[1]{\trimbox{0pt .6ex}{\textasciitilde}}}{#1}}
-    {\accentset{\scalebox{.9}[1]{\trimbox{0pt .6ex}{\textasciitilde}}}{#1}}
-    {\accentset{\scalebox{.7}[.8]{\trimbox{0pt .7ex}{\textasciitilde}}}{#1}}
-    {\accentset{\scalebox{.5}[.6]{\trimbox{0pt .8ex}{\textasciitilde}}}{#1}}
+\newcommand*{\stilde}[1]{%
+    \overset{%
+        \hspace{.35mm}
+        \scalebox{2.5}[1]{\trimbox{0pt .6ex}{\textasciitilde}}%
+    }{#1}%
 }%
-
-\newcommand{\sbar}[1]{%
-    \mathchoice
-    {\accentset{\scalebox{.9}[.85]{\trimbox{0pt .55ex}{\textminus}}}{#1}}
-    {\accentset{\scalebox{.9}[.85]{\trimbox{0pt .55ex}{\textminus}}}{#1}}
-    {\accentset{\scalebox{.7}[.7]{\trimbox{0pt .65ex}{\textminus}}}{#1}}
-    {\accentset{\scalebox{.5}[.6]{\trimbox{0pt .75ex}{\textminus}}}{#1}}
+\newcommand*{\shat}[1]{%
+    \overset{\scalebox{1.5}[.75]{\trimbox{0pt 1.1ex}{\textasciicircum}}}{#1}%
 }%
 
 %% 6.2.7 - Prime, inverse
@@ -751,6 +740,7 @@
 \newcommand*{\spD}{\mathcal{D}}%
 \newcommand*{\spP}{\mathcal{P}}%
 \newcommand*{\spN}{\mathcal{N}}%
+\newcommand*{\spNa}{\mathbb{N}}%
 \newcommand*{\spL}{\mathcal{L}}%
 \newcommand*{\spE}{\mathcal{E}}%
 \newcommand*{\spLI}{L^\infty}%
@@ -819,8 +809,8 @@
 %% 6.2.11.1 - Fourier related
 
 %% Fourier transform
-\newcommand*{\Ftr}{\mathcal{F}}%
-
+\newcommand*{\trF}{\mathcal{F}}%
+\newcommand*{\Ftr}{\trF}%
 
 %% Fourier Transform
 \newcommand*{\ftr}[3]{\int_{\spR}e^{-2\pi i #2#3}f(#2)d#2}%
@@ -848,6 +838,11 @@
     \rule{\linewidth}{0.4pt}%
 }%
 
+%% Custom separator
+\newcommand*{\hsep}[3][0.4pt]{%
+    \textcolor{#3}{\rule{#2\linewidth}{#1}}%
+}%
+
 %% Custom enumerate: prime item
 \makeatletter
 \newcommand\primeitemx{%
@@ -862,6 +857,13 @@
 \renewcommand*{\thefootnote}{\fnsymbol{footnote}}%
 \renewcommand*\thempfootnote{\fnsymbol{mpfootnote}}%
 \setlength{\footnotesep}{.8\baselineskip}%
+
+\newcommand*{\blankfootnote}[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}%
 
 %% ================================================= %%
 %% 7 - Notex environments
@@ -886,9 +888,14 @@
     \vspace{1mm}\par\nopagebreak
     \begin{mdframed}[
         backgroundcolor=FriendlyBlue!5,
-        leftline=false,bottomline=false,topline=false,rightline=false,
-        innerrightmargin=.5em,innertopmargin=.5em,innerbottommargin=.8em,
+        rightline=false,
+        leftline=false,
+        topline=false,
+        bottomline=false,
+        innerrightmargin=.5em,
         innerleftmargin=.5em,
+        innertopmargin=.5em,
+        innerbottommargin=.8em,
         skipabove=.5\baselineskip
     ]
     \begin{adjustwidth}{1em}{.5em}%
@@ -965,10 +972,14 @@
     \begin{mdframed}[
         linewidth=3pt,
         linecolor=#5,
-        backgroundcolor=#6!12,
-        bottomline=false,topline=false,rightline=false,
-        innerrightmargin=#8,innertopmargin=3pt,innerbottommargin=#9,
-        innerleftmargin=.5em,% Distance between vertical rule & content
+        backgroundcolor=#6,
+        rightline=false,
+        topline=false,
+        bottomline=false,
+        innerrightmargin=#8,
+        innerleftmargin=.5em,
+        innertopmargin=3pt,
+        innerbottommargin=#9,
         skipabove=.5\baselineskip,
         % nobreak=true
     ]
@@ -991,8 +1002,8 @@
 }{\endenvtemplate}%
 
 %% "Complete" environment (lateral bar and background)
-\newenvironment*{cEnvtemplate}[6]{%
-    \envtemplate{#1}{#2}{#3}{#4}{#5}{#6}{4}{12pt}{6pt}%
+\newenvironment*{cEnvtemplate}[7][12]{%
+    \envtemplate{#2}{#3}{#4}{#5}{#6}{#7!#1}{4}{12pt}{6pt}%
 }{\endenvtemplate}%
 
 %% 7.3.1 Theorem environments
@@ -1161,7 +1172,7 @@
 
 \newenvironment*{rmrkx}[1][]{%
     \refstepcounter{thm}
-    \cEnvtemplate{4}{#1}{Osservazione}{\thethm}{FriendlyMidnight}{FriendlyMidnight}%
+    \cEnvtemplate[6]{4}{#1}{Osservazione}{\thethm}{FriendlyMidnight}{FriendlyMidnight}%
 }{\endcEnvtemplate}%
 
 \newenvironment*{rmrk*}[1][]{%
@@ -1169,7 +1180,7 @@
 }{\endsEnvtemplate}%
 
 \newenvironment*{rmrkx*}[1][]{%
-    \cEnvtemplate{4}{#1}{Osservazione}{}{FriendlyMidnight}{FriendlyMidnight}%
+    \cEnvtemplate[6]{4}{#1}{Osservazione}{}{FriendlyMidnight}{FriendlyMidnight}%
 }{\endcEnvtemplate}%
 
 %% ------------------------------------------------- %%
@@ -1268,9 +1279,14 @@
     \vspace{2mm}\par\nopagebreak
     \begin{mdframed}[
         backgroundcolor=#1,
-        leftline=false,bottomline=false,topline=false,rightline=false,
-        innerrightmargin=.5em,innertopmargin=.5em,innerbottommargin=.5em,
+        rightline=false,
+        leftline=false,
+        topline=false,
+        bottomline=false,
+        innerrightmargin=.5em,
         innerleftmargin=.5em,
+        innertopmargin=.5em,
+        innerbottommargin=.5em,
         skipabove=.5\baselineskip
     ]
 }{%
@@ -1355,30 +1371,96 @@
 
 %% Block quote
 
-\newcommand*\quotesize{60}%  
+\newcommand*\quotesize{36}%  
 
 \newcommand*{\openquote}{%
-    \tikz[remember picture,overlay,xshift=-4ex,yshift=-2.5ex]
-    \node (OQ) {\fontsize{\quotesize}{\quotesize}\fontfamily{qbk}\selectfont``};%
+    \tikz[remember picture,overlay,xshift=-4ex,yshift=-1ex]
+    \node (OQ) {%
+        \fontsize{\quotesize}{\quotesize}%
+        \fontfamily{qbk}\selectfont%
+        ``%
+    };%
     \kern0pt
 }%
 
-\newcommand*{\closequote}{%
-    \tikz[remember picture,overlay,xshift=4ex,yshift=-2ex]
-    \node (CQ) {\fontsize{\quotesize}{\quotesize}\fontfamily{qbk}\selectfont''};%
+\newcommand*{\closequote}[1][-2ex]{%
+    \tikz[remember picture,overlay,xshift=4ex,yshift=#1]
+    \node (CQ) {%
+        \fontsize{\quotesize}{\quotesize}%
+        \fontfamily{qbk}\selectfont%
+        ''%
+    };%
 }%
    
 \colorlet{shadecolor}{white!0}
 
-\newcommand*\shadedauthorformat{\emph}%
-
-\newenvironment*{quotex}[1]{%
-    \def\authorfill{\hfill}\def\quotefill{}%
-    \def\shadequoteauthor{\par\authorfill\shadedauthorformat{#1}}%
-    \begin{snugshade}\begin{quote}\openquote
+\newenvironment*{quotex}[1][]{%
+    \def\temp{#1}%
+    \begin{snugshade}%
+        \begin{quote}%
+            \openquote%
+            \em%
 }{%
-    \shadequoteauthor\quotefill%
-    \closequote\end{quote}\end{snugshade}%
+            \par\hfill
+            \ifx\temp\empty
+                \closequote[2.4ex]%
+            \else
+                \em\temp%
+                \closequote%
+            \fi%
+        \end{quote}%
+    \end{snugshade}%
+}%
+
+%% Quote block
+\newenvironment*{quoteblox}[1][]{%
+    \def\temp{#1}%
+    \par\nopagebreak
+    \begin{mdframed}[
+        backgroundcolor=FriendlyMidnight!3,
+        linecolor=FriendlyMidnight!15,
+        linewidth=3pt,
+        rightline=false,
+        topline=false,
+        bottomline=false,
+        innerrightmargin=1em,
+        innerleftmargin=.5em,
+        innertopmargin=.5em,
+        innerbottommargin=.5em,
+        skipabove=.5\baselineskip
+    ]
+        \begin{hangparas}{3.25mm}{1}
+            \opencq\em\hspace{.1mm}%
+}{%
+            \hspace{.1mm}\em\closecq%
+            %
+            % OPTION 1
+            %
+            \ifx\temp\empty
+            \else
+                % \vspace{-3.50mm}
+                \vspace{-2.25ex}
+                \begin{adjustwidth}{.55\linewidth}{0pt}
+                    \textcolor{black!35}{\hseparator}
+                \end{adjustwidth}
+                % \vspace{-2.75mm}
+                \vspace{-1.75ex}
+                \hfill\textcolor{black!50}{\small\temp}
+            \fi
+        \end{hangparas}\unskip
+    \end{mdframed}%
+    \unskip\vspace{-1mm}%
+    %
+    % OPTION 2
+    %
+    % \unskip
+    % \ifx\temp\empty
+    % \else
+    %     \vspace{-4mm}%
+    %     \begin{adjustwidth}{0pt}{.5em}
+    %         \hfill\temp%
+    %     \end{adjustwidth}
+    % \fi
 }%
 
 %% ================================================= %%
@@ -1439,6 +1521,23 @@
 \newcommand*{\rref}[1]{(\bm{\ref{#1}})}%
 \newcommand*{\wref}[2]{\href{#1}{\blue{\underline{\smash{#2}}}}}%
 
+%% Figure references
+
+\newcounter{fig}
+\setcounter{fig}{0}
+
+% Show counter and assign label
+\newcommand*{\figcounter}[1]{%
+    \refstepcounter{fig}%
+    \thefig\label{#1}%
+}%
+
+% Generate figure label
+\newcommand*{\figlabel}[2][Figura]{%
+    \footnotesize%
+    \textsc{#1~\figcounter{#2}}%
+}%
+
 %% Web reference with Soul
 \setul{1pt}{.4pt}
 \newcommand*{\wsref}[2]{\href{#1}{\blue{\ul{#2}}}}%
@@ -1496,3 +1595,5 @@
 %% ================================================= %%
 %% 10 - Experimental
 %% ================================================= %%
+
+% Nothing to see here right now!
